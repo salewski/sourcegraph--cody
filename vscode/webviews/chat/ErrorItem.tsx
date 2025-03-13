@@ -146,12 +146,12 @@ const RateLimitErrorItem: React.FunctionComponent<{
                     <h1>
                         {canUpgrade
                             ? 'Upgrade to Cody Pro'
-                            : 'Daily usage limit of premium models reached, switching to Gemini Flash. Unable to Send Message'}
+                            : 'Usage limit of premium models reached, switching the model to Gemini Flash.'}
                     </h1>
                     <p>
                         {error.userMessage}
                         {canUpgrade &&
-                            'Daily usage limit of premium models reached, switching to Gemini Flash. Upgrade to Cody Pro for unlimited autocomplete suggestions, and increased limits for chat messages and commands.'}
+                            ' Upgrade to Cody Pro for unlimited autocomplete suggestions, and increased limits for chat messages and commands.'}
                     </p>
                 </header>
                 <div className={styles.actions}>

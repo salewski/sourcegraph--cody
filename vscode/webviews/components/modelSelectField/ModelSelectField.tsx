@@ -69,7 +69,8 @@ export const ModelSelectField: React.FunctionComponent<{
                 // cause the component to re-render with the new state
                 setExceedRateLimit(message.isRateLimited)
 
-                if (message.isRateLimited) {
+                // Switch to the fallback model for Pro and ES users
+                if (message.isRateLimited && (userInfo.isCodyProUser || !userInfo.isDotComUser)) {
                     let fallbackModel = models.find(
                         m =>
                             m.id.includes('flash') ||
@@ -86,12 +87,16 @@ export const ModelSelectField: React.FunctionComponent<{
                     if (fallbackModel && selectedModel.id !== fallbackModel.id) {
                         parentOnModelSelect(fallbackModel)
                     }
+                    // Record event here when the user hits the rate limit error and the model they get routed to
+                    telemetryRecorder.recordEvent('cody.rateLimit', 'hit', {
+                        privateMetadata: { rateLimitedModel: fallbackModel },
+                    })
                 }
             }
         }
         window.addEventListener('message', messageHandler)
         return () => window.removeEventListener('message', messageHandler)
-    }, [models, selectedModel, parentOnModelSelect])
+    }, [models, selectedModel, parentOnModelSelect, telemetryRecorder, userInfo])
 
     const onModelSelect = useCallback(
         (model: Model): void => {
