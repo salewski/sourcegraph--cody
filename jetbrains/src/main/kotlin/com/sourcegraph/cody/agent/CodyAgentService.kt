@@ -81,6 +81,9 @@ class CodyAgentService(private val project: Project) : Disposable {
         ClientCapabilities(
             authentication = ClientCapabilities.AuthenticationEnum.Enabled,
             edit = ClientCapabilities.EditEnum.Enabled,
+            autoedit = ClientCapabilities.AutoeditEnum.Enabled,
+            autoeditInlineDiff = ClientCapabilities.AutoeditInlineDiffEnum.None,
+            autoeditAsideDiff = ClientCapabilities.AutoeditAsideDiffEnum.Diff,
             editWorkspace = ClientCapabilities.EditWorkspaceEnum.Enabled,
             codeLenses = ClientCapabilities.CodeLensesEnum.Enabled,
             disabledMentionsProviders = listOf("symbol"),
